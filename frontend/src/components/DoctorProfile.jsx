@@ -161,7 +161,7 @@ const DoctorProfile = () => {
 
       {/* Show profile card if profile data is available */}
       {profileData && (
-        <div>
+        <div className="profile">
           <h3>Doctor Profile</h3>
           <p><strong>Name:</strong> {profileData.doctorName}</p>
           <p><strong>Specialization:</strong> {profileData.speciality}</p>

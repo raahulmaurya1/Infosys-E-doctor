@@ -24,7 +24,7 @@ import Feedback from './components/Feedback';
 import BookingAppointment from './components/BookingAppointment';
 import FeedbackListAdmin from './components/FeedbackListAdmin';
 import PatientProfile from './components/PatientProfile';
-
+import UserList from './components/sections/UserList';
 function App() {
   // State to hold doctor data
   const [doctors, setDoctors] = useState([]);
@@ -63,6 +63,7 @@ function App() {
         <Route path="/AdminLogin" element={<AdminLogin/>}/>
         <Route path="/payment" element={<Payment />} />
         <Route path='PatientProfile' element={<PatientProfile/>}/>
+       {/* <Route path="/userlist" element={<UserList />} /> */}
       </Routes>
       </div>
     </Router>

@@ -3,21 +3,37 @@ import './UserList.css';
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch user data from an API
+  // Fetch user data from the API
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('/api/users'); // Replace with your API endpoint
+        const response = await fetch('http://localhost:8000/admin/getAllUsers');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const data = await response.json();
         setUsers(data);
-      } catch (error) {
-        console.error('Error fetching users:', error);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching users:', err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchUsers();
   }, []);
+
+  if (loading) {
+    return <div className="loading">Loading users...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Error: {error}</div>;
+  }
 
   return (
     <div className="user-list-container">
@@ -28,24 +44,30 @@ function UserList() {
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Registration Date</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>{user.registrationDate}</td>
-              <td>
-                <button className="view-button">View</button>
-                <button className="edit-button">Edit</button>
-                <button className="delete-button">Delete</button>
+          {users.length > 0 ? (
+            users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.userType}</td>
+                <td>
+                  <button className="view-button">View</button>
+                  <button className="edit-button">Edit</button>
+                  <button className="delete-button">Delete</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" style={{ textAlign: 'center' }}>
+                No users found.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
