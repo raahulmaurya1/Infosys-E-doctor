@@ -19,6 +19,8 @@ body {
   height: 100vh;
   background: url('homepage.jpg') no-repeat center center/cover; 
   color: rgb(84, 69, 69);
+ -webkit-mask-image: linear-gradient(button,black,transparent 80%);
+ mask-image:linear-gradient(button,black,transparent 80%);
 }
 
 .home-overlay {

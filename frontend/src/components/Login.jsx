@@ -2,20 +2,46 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
+import { style } from '@mui/system';
 
 function Login() {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('');
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!userId.trim()) {
+      newErrors.userId = 'Email is required.';
+    } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(userId)) {
+      newErrors.userId = 'Invalid email format.';
+    }
+
+    if (!password.trim()) {
+      newErrors.password = 'Password is required.';
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters.';
+    }
+
+    if (!userType) {
+      newErrors.userType = 'Please select a role.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleForgotPassword = () => {
     navigate('/forgotPassword');
-    // You can replace this with actual logic for sending a reset link or emailing the user
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     const loginData = { userId, password, userType };
     console.log('Login data:', loginData);
@@ -23,31 +49,18 @@ function Login() {
     try {
       const response = await axios.post('http://localhost:8000/loginUser', loginData);
 
-      // Assuming the server response contains a "success" key
       if (response.data === true && userType === "Doctor") {
         console.log('Server response:', response.data);
-        
-        // Storing userId in localStorage or sessionStorage based on the user's preference
-        if (userType === "Doctor") {
-          localStorage.setItem("userId", userId);  // Or use sessionStorage.setItem("userId", userId);
-        }
-
-        navigate('/Doctordashboard'); // Redirect to the Doctor dashboard upon successful login
-        //alert('Login successful!');
+        localStorage.setItem("userId", userId);
+        navigate('/Doctordashboard');
       } else if (response.data === true && userType === "Patient") {
         console.log('Server response:', response.data);
-        
-        // Storing userId in localStorage or sessionStorage based on the user's preference
-        if (userType === "Patient") {
-          localStorage.setItem("userId", userId);  // Or use sessionStorage.setItem("userId", userId);
-        }
-
-        navigate('/Patientdashboard'); // Redirect to the Patient dashboard upon successful login
+        localStorage.setItem("userId", userId);
+        navigate('/Patientdashboard');
       } else {
         alert('Login unsuccessful. Please check your credentials.');
-      }    
+      }
     } catch (error) {
-      // Handling server errors or network issues
       if (error.response && error.response.data) {
         alert(`Login failed: ${error.response.data.message}`);
       } else {
@@ -68,8 +81,9 @@ function Login() {
           name="userId"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
-          required
         />
+        {errors.userId && <p className="error-text">{errors.userId}</p>}
+
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -77,19 +91,21 @@ function Login() {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
+        {errors.password && <p className="error-text">{errors.password}</p>}
+
         <label htmlFor="userType">Role</label>
         <select
           id="userType"
           value={userType}
           onChange={(e) => setUserType(e.target.value)}
-          required
         >
           <option value="">Select Role</option>
           <option value="Patient">Patient</option>
           <option value="Doctor">Doctor</option>
         </select>
+        {errors.userType && <p className="error-text">{errors.userType}</p>}
+
         <button type="submit">Login</button>
         <p>New user? <a href="/register">Register here</a></p>
         <button type="button" onClick={handleForgotPassword} className="forgot-password-button">

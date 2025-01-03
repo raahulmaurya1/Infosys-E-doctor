@@ -93,6 +93,12 @@ body{
   text-align: center;
   margin-bottom: 10px;
 }
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 
 /* Optional: Add subtle animations */
 @keyframes fadeIn {

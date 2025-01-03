@@ -19,7 +19,8 @@ const PatientProfile = () => {
   });
   const [userId, setUserId] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // New loading state
+  const [formErrors, setFormErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -73,6 +74,20 @@ const PatientProfile = () => {
     fetchPatientData();
   }, [userId]);
 
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.patientName) errors.patientName = "Name is required.";
+    if (!formData.patientId) errors.patientId = "Patient ID is required.";
+    if (!formData.mobileNo || !/^\d{10}$/.test(formData.mobileNo))
+      errors.mobileNo = "Valid 10-digit mobile number is required.";
+    if (!formData.bloodGroup) errors.bloodGroup = "Blood group is required.";
+    if (!formData.gender) errors.gender = "Gender is required.";
+    if (!formData.age || isNaN(formData.age) || formData.age <= 0)
+      errors.age = "Valid age is required.";
+    if (!formData.address) errors.address = "Address is required.";
+    return errors;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -80,7 +95,15 @@ const PatientProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading
+
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    setFormErrors({});
+    setIsLoading(true);
+
     try {
       const response = await axios.post(
         "http://localhost:8000/patient/addPatient",
@@ -102,7 +125,7 @@ const PatientProfile = () => {
       console.error("Error saving profile:", error);
       setError("Error saving profile. Please try again.");
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false);
     }
   };
 
@@ -114,55 +137,69 @@ const PatientProfile = () => {
 
       {!profileData && (
         <form onSubmit={handleSubmit}>
-          <input
-            name="patientName"
-            placeholder="Name"
-            value={formData.patientName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="patientId"
-            placeholder="Patient ID"
-            value={formData.patientId}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="mobileNo"
-            placeholder="Mobile No"
-            value={formData.mobileNo}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="bloodGroup"
-            placeholder="Blood Group"
-            value={formData.bloodGroup}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="gender"
-            placeholder="Gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="age"
-            placeholder="Age"
-            value={formData.age}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="address"
-            placeholder="Address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
+          <div>
+            <input
+              name="patientName"
+              placeholder="Name"
+              value={formData.patientName}
+              onChange={handleChange}
+            />
+            {formErrors.patientName && <p className="error">{formErrors.patientName}</p>}
+          </div>
+          <div>
+            <input
+              name="patientId"
+              placeholder="Patient ID"
+              value={formData.patientId}
+              onChange={handleChange}
+            />
+            {formErrors.patientId && <p className="error">{formErrors.patientId}</p>}
+          </div>
+          <div>
+            <input
+              name="mobileNo"
+              placeholder="Mobile No"
+              value={formData.mobileNo}
+              onChange={handleChange}
+            />
+            {formErrors.mobileNo && <p className="error">{formErrors.mobileNo}</p>}
+          </div>
+          <div>
+            <input
+              name="bloodGroup"
+              placeholder="Blood Group"
+              value={formData.bloodGroup}
+              onChange={handleChange}
+            />
+            {formErrors.bloodGroup && <p className="error">{formErrors.bloodGroup}</p>}
+          </div>
+          <div>
+            <input
+              name="gender"
+              placeholder="Gender"
+              value={formData.gender}
+              onChange={handleChange}
+            />
+            {formErrors.gender && <p className="error">{formErrors.gender}</p>}
+          </div>
+          <div>
+            <input
+              name="age"
+              placeholder="Age"
+              value={formData.age}
+              onChange={handleChange}
+            />
+            {formErrors.age && <p className="error">{formErrors.age}</p>}
+          </div>
+          <div>
+            <input
+              name="address"
+              placeholder="Address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+            {formErrors.address && <p className="error">{formErrors.address}</p>}
+          </div>
           <input
             name="email"
             placeholder="Email"
@@ -174,7 +211,7 @@ const PatientProfile = () => {
             type="submit"
             variant="contained"
             color="primary"
-            disabled={isLoading} // Disable button when loading
+            disabled={isLoading}
             startIcon={isLoading ? <CircularProgress size={20} /> : null}
           >
             {isLoading ? "Saving..." : "Save Profile"}

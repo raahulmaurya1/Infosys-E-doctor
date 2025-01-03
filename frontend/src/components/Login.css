@@ -95,3 +95,9 @@ body{
 .login-form {
   animation: fadeIn 0.6s ease-in-out;
 }
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
