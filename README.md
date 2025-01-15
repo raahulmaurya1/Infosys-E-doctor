@@ -1,13 +1,13 @@
    <h2><b>Overview</b></h2>
--   Title :Outpatient Doctor Appointment System  
--   Description :Web app for streamlined outpatient appointment booking.
+-   Title :Outpatient Doctor Appointment System  <br/>
+-   Description :Web app for streamlined outpatient appointment booking.<br/>
 
   <h2>Features</h2>
-1. User Authentication :Secure login, registration, email verification, profile management.  
-2. Doctor Availability :Doctors manage availability; patients book based on it.  
-3. Appointment Scheduling :Book slots, FAQ chatbot, real-time availability.  
-4. Appointment Management :View/manage schedules, payment gateway, notifications.  
-5. Patient Info :Secure data, recovery tracking, downloadable bills.  
+1. User Authentication :Secure login, registration, email verification, profile management.<br/> 
+2. Doctor Availability :Doctors manage availability; patients book based on it.<br/>  
+3. Appointment Scheduling :Book slots, FAQ chatbot, real-time availability.<br/>
+4. Appointment Management :View/manage schedules, payment gateway, notifications. <br/> 
+5. Patient Info :Secure data, recovery tracking, downloadable bills.
 6. Notifications :Email/SMS reminders and updates.  
 7. Admin Dashboard :Manage users, doctors, appointments, and reports.
 
