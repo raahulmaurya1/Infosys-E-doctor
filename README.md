@@ -16,7 +16,7 @@
 -   Backend :Spring Boot <br/> 
 -   Database :MySQL  <br/> 
 -   Testing :Mockito  <br/>  
--   Notifications :Email/SMS <br/> 
+-   Notifications :JavaMailSender <br/> 
 -   Chatbot :For FAQ. <br/>   
 
   <h2>Setup</h2>
