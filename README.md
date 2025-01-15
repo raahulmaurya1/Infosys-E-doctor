@@ -1,8 +1,8 @@
-   <h2><b>Overview</b><h2/>
+   <h2><b>Overview</b></h2>
 -   Title :Outpatient Doctor Appointment System  
 -   Description :Web app for streamlined outpatient appointment booking.
 
-  <h2>Features<h2/>
+  <h2>Features</h2>
 1. User Authentication :Secure login, registration, email verification, profile management.  
 2. Doctor Availability :Doctors manage availability; patients book based on it.  
 3. Appointment Scheduling :Book slots, FAQ chatbot, real-time availability.  
@@ -11,7 +11,7 @@
 6. Notifications :Email/SMS reminders and updates.  
 7. Admin Dashboard :Manage users, doctors, appointments, and reports.
 
-  <h2><b>Technologies</b><h2/>
+  <h2><b>Technologies</b></h2>
 -   Frontend :Html,css,js,React.js,react-chartjs-2,React ChatBotify  
 -   Backend :Spring Boot  
 -   Database :MySQL 
