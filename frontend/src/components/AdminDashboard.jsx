@@ -178,7 +178,18 @@ function Dashboard() {
           </div>
         </div>  
       </main>
+      <div className="dashboard-overview">
+  {stats.totalUsers > 0 ? (
+    <div >
+      
     </div>
+  ) : (
+    <p>No user data available</p>
+  )}
+ </div>
+
+    </div>
+    
   );
 }
 
