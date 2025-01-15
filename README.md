@@ -31,7 +31,7 @@
 6. Run frontend :npm start    
 
   <h2>License</h2>
-MIT License. See LICENSE file for details.  
+MIT License. See LICENSE file for details. <br/>  
 
-Let me know if you'd like further changes!
+Let me know if you'd like further changes! <br/> 
 Contact: raahulmaurya2@gmail.com
