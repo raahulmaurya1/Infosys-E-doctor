@@ -1,64 +1,116 @@
-# 🏥 Outpatient Doctor Appointment System
+# 🏥 E-Doctor - Outpatient Medical Appointment Management System
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![Tech Stack](https://img.shields.io/badge/Tech%20Stack-React%2C%20SpringBoot%2C%20MySQL-blue)
 
-A full-stack web application that streamlines the outpatient appointment process by enabling patients to book appointments with doctors based on real-time availability. It includes secure authentication, automated notifications, admin dashboards, and chatbot support for FAQs.
+A full-stack web application built with **Spring Boot** and **React.js**, designed to streamline outpatient appointment scheduling, communication, and healthcare management. It provides dedicated interfaces for **patients**, **doctors**, and **administrators**, offering secure authentication, payment processing, AI chatbot assistance, and real-time updates.
 
 ---
 
 ## ✨ Overview
 
-- **🎯 Title:** Outpatient Doctor Appointment System  
-- **📄 Description:** A modern, responsive web app for managing outpatient doctor appointments. It connects patients and doctors with real-time availability, automated scheduling, and secure patient information handling.
+- **🎯 Title:** E-Doctor - Outpatient Doctor Appointment System  
+- **📄 Description:** A modern and responsive platform for managing outpatient doctor appointments. Features include real-time doctor availability, patient records, appointment scheduling, and a comprehensive dashboard system.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-✅ **User Authentication**  
-&emsp;Secure login, registration, email verification, and user profile management.
+### 🧑‍⚕️ For Patients
+- Account creation, login, and password reset via email OTP
+- Doctor search and booking by availability
+- Appointment tracking and cancellation
+- Feedback submission
+- Secure payment integration using Stripe
+- Medical history and downloadable bills
+- Email & SMS notifications
 
-✅ **Doctor Availability**  
-&emsp;Doctors can set/manage availability; patients book accordingly.
+### 👨‍⚕️ For Doctors
+- Profile and availability management
+- Appointment tracking and updates
+- Access to patient medical history
+- Email alerts on appointment changes
 
-✅ **Smart Appointment Scheduling**  
-&emsp;Includes slot selection, real-time tracking, and a chatbot for FAQs.
+### 🛠️ For Admins
+- Manage users (patients & doctors)
+- Monitor all appointments and statistics
+- System-wide availability and feedback management
+- Admin dashboard for analytics
 
-✅ **Integrated Appointment Management**  
-&emsp;View, manage, and cancel appointments with notifications and payment support.
-
-✅ **Patient Medical Records**  
-&emsp;Secure storage of personal and recovery data with downloadable bills.
-
-✅ **Notification System**  
-&emsp;Email and SMS reminders for upcoming appointments and changes.
-
-✅ **Admin Dashboard**  
-&emsp;View reports and manage users, doctors, and appointments efficiently.
-
-✅ **Chatbot Integration**  
-&emsp;AI-based FAQ chatbot to assist users instantly.
+### 💬 Extras
+- AI-powered FAQ chatbot
+- Notification system with email & SMS
+- Real-time updates and alerts
 
 ---
 
-## 🛠️ Tech Stack
+## 🧱 Tech Stack
 
 | Layer      | Technologies Used                                                                 |
 |------------|-------------------------------------------------------------------------------------|
 | Frontend   | HTML, CSS, JavaScript, **React.js**, `react-chartjs-2`, **React ChatBotify**       |
 | Backend    | **Spring Boot**, RESTful APIs                                                      |
-| Database   | **MySQL**                                                                          |
+| Database   | **MySQL**, JPA, Hibernate                                                          |
+| Security   | **Spring Security**, BCrypt, JWT, CSRF                                             |
+| Payments   | **Stripe API**                                                                     |
+| Notifications | **JavaMailSender**, optional SMS integration                                   |
 | Testing    | **Mockito**                                                                        |
-| Notifications | **JavaMailSender**, optional SMS gateway integration                           |
-| Others     | JSON Web Tokens (JWT), Bcrypt for password encryption                             |
 
 ---
 
-## 🖥️ Screenshots
+## 📡 API Endpoints
 
-> Add screenshots or a demo GIF here if available for visual reference.
+### 🔐 User Management
+- `POST /addUser` – Register user  
+- `POST /loginUser` – Authenticate  
+- `POST /forgot-password` – Password reset initiation  
+- `POST /reset-password` – Complete password reset
+
+### 👨‍⚕️ Doctor Management
+- `POST /doctor/addDoctor`  
+- `GET /doctor/getDoctor/{doctorId}`  
+- `GET /doctor/getAllDoctors`  
+- `PUT /doctor/updateDoctor`  
+- `DELETE /doctor/deleteDoctor/{doctorId}`  
+
+### 👥 Patient Management
+- `POST /patient/addPatient`  
+- `GET /patient/getPatient/{patientId}`  
+- `GET /patient/getAllPatients`  
+- `PUT /patient/updatePatient`  
+- `DELETE /patient/deletePatient/{patientId}`  
+
+### 📅 Appointment Management
+- `GET/POST/PUT/DELETE /appointments`  
+- `GET /appointments/doctor`  
+- `GET /appointments/patient`  
+- `GET /appointments/date`  
+
+### ⭐ Feedback System
+- `POST /feedback`  
+- `GET /feedback/doctor/{doctorId}`  
+- `GET /feedback/patient/{patientId}`  
+
+### 💳 Payment Processing
+- `POST /api/payment/create-checkout-session`  
+- `GET /api/payment/success`  
+
+---
+
+## 🔐 Security Features
+
+- Password encryption using **BCrypt**
+- **JWT**-based secure authentication
+- CSRF protection
+- Role-based access control
+- Email verification for password reset
+
+---
+
+## 🖼️ Screenshots (Placeholders)
+
+> Replace with actual screenshots or demo GIFs
 
 <p align="center">
   <img src="https://via.placeholder.com/600x300?text=Login+Screen" alt="Login UI" />
@@ -71,10 +123,11 @@ A full-stack web application that streamlines the outpatient appointment process
 
 ### 🧾 Prerequisites
 
-- Node.js and npm
-- Maven
-- MySQL server
-- JDK 11+
+- **Node.js** and **npm**
+- **JDK 11+**
+- **Maven**
+- **MySQL server**
+- **Stripe account** for payment integration
 
 ---
 
@@ -83,8 +136,8 @@ A full-stack web application that streamlines the outpatient appointment process
 #### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/outpatient-appointment-system.git
-cd outpatient-appointment-system
+git clone https://github.com/your-username/e-doctor-appointment-system.git
+cd e-doctor-appointment-system
 ```
 
 #### 2️⃣ Backend Setup (Spring Boot)
@@ -94,7 +147,7 @@ cd backend
 mvn install
 ```
 
-- Configure `application.properties` with your DB credentials:
+Update the `application.properties` file:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/your_db
@@ -102,7 +155,7 @@ spring.datasource.username=root
 spring.datasource.password=your_password
 ```
 
-- Run the server:
+Start the server:
 
 ```bash
 mvn spring-boot:run
@@ -120,7 +173,8 @@ npm start
 
 ## 🧪 Testing
 
-- **Unit Tests:** Run with Mockito
+Run unit tests using Mockito:
+
 ```bash
 mvn test
 ```
@@ -129,15 +183,15 @@ mvn test
 
 ## 📬 Contact
 
-📧 **Email:** [raahulmaurya2@gmail.com](mailto:raahulmaurya2@gmail.com)  
+📧 **Email:** [raahulmaurya2@gmail.com](mailto:raahulmaurya2@gmail.com)
 
 ---
 
 ## 📄 License
 
 This project is licensed under the **MIT License**.  
-See the [LICENSE](LICENSE) file for more details.
+See the [LICENSE](LICENSE) file for more information.
 
 ---
 
-⭐ *Feel free to fork this repo, submit issues, or make pull requests to enhance it further!*
+⭐ *Fork this repo, report issues, and contribute to make it even better!*
